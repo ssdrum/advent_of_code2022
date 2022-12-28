@@ -17,11 +17,11 @@ def calc_score(opp, res):
     opp_int = ord(opp) - 65  # change opponent's choice into an int between 0 and 2
     score = 0
 
-    if res == "X":
+    if res == "X": # loose
         score = shapes[chr((opp_int - 1) % 3 + 88)]
-    elif res == "Y":
+    elif res == "Y": # draw
         score = shapes[chr(opp_int + 88)] + 3
-    else:
+    else: # win
         score = shapes[chr((opp_int + 1) % 3 + 88)] + 6
 
     return  score
