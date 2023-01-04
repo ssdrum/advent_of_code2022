@@ -31,6 +31,7 @@ def gen_tree():
     curr = root
 
     with open("input7.txt") as f:
+        l = f.readline() # skip first line
         l = f.readline()
         while l:
             tokens = l.split()
@@ -54,6 +55,7 @@ def gen_tree():
     return root
 
 
+# calculates size of subtree with root = root
 def calc_size(root):
     tot_size = 0
     tot_size = root.size
@@ -62,11 +64,13 @@ def calc_size(root):
     return tot_size
 
 
-def post_traversal(root, dirs={}):
+# traverses the tree in post-traversal and generates a list with the sizes of
+# all the directories
+def post_traversal(root, dirs=[]):
     if root is not None:
         for c in root.children:
             if isinstance(c, Directory):
-                dirs[c.name] = calc_size(c)
+                dirs.append(calc_size(c))
                 post_traversal(c, dirs)
     return dirs
         
@@ -76,9 +80,9 @@ def main():
     dirs = post_traversal(root)
 
     solution = 0
-    for k,v in dirs.items():
-        if v <= 100000:
-            solution += v
+    for d in dirs:
+        if d <= 100000:
+            solution += d
     print(solution)
 
 
