@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 
+DISK_SIZE = 70000000 # tot disk size
+
 class Node():
     def __init__(self, name, parent, size):
         self.name = name
@@ -26,6 +28,7 @@ class File(Node):
     pass
 
 
+# builds the tree
 def gen_tree():
     root = Directory("/")
     curr = root
@@ -65,23 +68,26 @@ def calc_size(root):
 
 # traverses the tree in post-traversal and generates a list with the sizes of
 # all the directories
-def post_traversal(root, dirs=[]):
+def post_traversal(root, dirs_sizes=[]):
     if root is not None:
         for c in root.children:
             if isinstance(c, Directory):
-                dirs.append(calc_size(c))
-                post_traversal(c, dirs)
-    return dirs
+                dirs_sizes.append(calc_size(c))
+                post_traversal(c, dirs_sizes)
+    return dirs_sizes
         
 
 def main():
     root = gen_tree()
-    dirs = post_traversal(root)
+    dirs_sizes = post_traversal(root)
+    used = calc_size(root) # used space
+    free = DISK_SIZE - used # free space
 
-    solution = 0
-    for d in dirs:
-        if d <= 100000:
-            solution += d
+    solution = used
+    for s in dirs_sizes:
+        if s + free >= 30000000 and s < solution:
+            solution = s
+
     print(solution)
 
 
