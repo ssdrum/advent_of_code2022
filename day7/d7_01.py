@@ -65,18 +65,18 @@ def calc_size(root):
 
 # traverses the tree in post-traversal and generates a list with the sizes of
 # all the directories
-def post_traversal(root, dirs=[]):
+def get_dirs_sizes(root, dirs=[]):
     if root is not None:
         for c in root.children:
             if isinstance(c, Directory):
                 dirs.append(calc_size(c))
-                post_traversal(c, dirs)
+                get_dirs_sizes(c, dirs)
     return dirs
         
 
 def main():
     root = gen_tree()
-    dirs = post_traversal(root)
+    dirs = get_dirs_sizes(root)
 
     solution = 0
     for d in dirs:
