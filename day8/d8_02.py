@@ -24,7 +24,7 @@ def main():
         if i % l != 0 and (i + 1) % l != 0:
             centr_trees.append(i + l)
 
-    solution = 2 * l + 2 * (h - 2) # initialise solution counting outer trees
+    max_score = 0
     for pos in centr_trees:
         # find trees on the left and on the right of the current central tree
         row_num = pos // l
@@ -37,13 +37,35 @@ def main():
         above = col[:pos // l]
         below = col[pos // l + 1:]
 
-        # find visible trees
+        # find view distances on all four directions
         curr = trees[pos]
-        if all(t < curr for t in left) or all(t < curr for t in right) \
-        or all(t < curr for t in above) or all(t < curr for t in below):
-            solution += 1
+        distances = []
+        distances.append(find_first_cover(curr, above[::-1]))
+        distances.append(find_first_cover(curr, left[::-1]))
+        distances.append(find_first_cover(curr, right))
+        distances.append(find_first_cover(curr, below))
 
-    print(solution)
+        # calculate scenic score
+        score = mult_list(distances)
+        if score > max_score:
+            max_score = score
+
+    print(max_score)
+
+
+# finds number of trees visible from tree in line
+def find_first_cover(tree, line):
+    i = 0
+    while line[i] < tree and i < len(line) - 1:
+        i += 1
+    return i + 1
+
+
+def mult_list(nums):
+    prod = 1
+    for x in nums:
+        prod *= x
+    return prod
 
 
 if __name__ == '__main__':
