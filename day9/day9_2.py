@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 
+# note that the last 4 cases are not necessary on the first part of the problem
 MOVES = {(2, 0): (1, 0), (-2, 0): (-1, 0), (0, 2): (0, 1), (0, -2): (0, -1),
          (1, 2): (1, 1), (1, -2): (1, -1), (2, 1): (1, 1), (2, -1): (1, -1),
          (-1, 2): (-1, 1), (-2, 1): (-1, 1), (-2, -1): (-1, -1),
@@ -64,7 +65,7 @@ def main():
             dirctn, amount = l.split()
             for _ in range(int(amount)):
                 move_rope(head, points, dirctn)
-                tail = points[8]
+                tail = points[-1]
                 visited.add((tail.x, tail.y))
 
 
