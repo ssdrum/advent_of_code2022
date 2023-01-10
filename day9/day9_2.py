@@ -48,9 +48,9 @@ def move_points(head, points):
 def main():
     head = Point(0, 0)
     points = [Point(0, 0) for _ in range(ROPE_LEN)]
+    # store visited points in a set to avoid duplicates
     visited = set()
     visited.add((0, 0))
-    # store visited points in a set to avoid duplicates
     
     with open("input9.txt") as f:
         for l in f:

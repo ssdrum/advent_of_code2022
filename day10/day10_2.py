@@ -8,7 +8,7 @@ def draw(cycle, mid):
     elif abs(cycle - mid) < 2:
         print("#", end="")
     else:
-        print(" ", end="") # space just works better than dots
+        print(" ", end="") # I just can't read the message if I use dots
 
 
 def main():
