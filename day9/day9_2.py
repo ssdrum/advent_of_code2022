@@ -8,6 +8,8 @@ MOVES = {(2, 0): (1, 0), (-2, 0): (-1, 0), (0, 2): (0, 1), (0, -2): (0, -1),
          (-1, -2): (-1, -1), (-2, -1): (-1, -1), (2, 2): (1, 1),
          (-2, -2): (-1, -1), (2, -2): (1, -1), (-2, 2): (-1, 1)}
 
+ROPE_LEN = 9 # excluding the head
+
 
 class Point():
     def __init__(self, x, y):
@@ -45,19 +47,9 @@ def move_points(head, points):
 
 def main():
     head = Point(0, 0)
-    p1 = Point(0, 0)
-    p2 = Point(0, 0)
-    p3 = Point(0, 0)
-    p4 = Point(0, 0)
-    p5 = Point(0, 0)
-    p6 = Point(0, 0)
-    p7 = Point(0, 0)
-    p8 = Point(0, 0)
-    p9 = Point(0, 0)
-
+    points = [Point(0, 0) for _ in range(ROPE_LEN)]
     visited = set()
     visited.add((0, 0))
-    points = [p1, p2, p3, p4, p5, p6, p7, p8, p9]
     # store visited points in a set to avoid duplicates
     
     with open("input9.txt") as f:
@@ -67,7 +59,6 @@ def main():
                 move_rope(head, points, dirctn)
                 tail = points[-1]
                 visited.add((tail.x, tail.y))
-
 
     print(len(visited))
     return 0

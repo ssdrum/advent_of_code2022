@@ -37,7 +37,7 @@ def move_tail(head, tail):
         tail.y += y
     # only triggered if tail doesn't have to move
     except KeyError:
-        pass
+        return
 
 
 def main():
